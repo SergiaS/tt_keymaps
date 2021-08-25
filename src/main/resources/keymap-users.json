@@ -1,0 +1,20 @@
+{
+    "keymap": {
+        "Action1": [
+            "ctrl pressed 2",
+            "ctrl pressed U"
+        ],
+        "Action2": [
+            "ctrl pressed 3"
+        ],
+        "Action3": [],
+        "Action5": [
+            "ctrl pressed A"
+        ],
+        "Action6": [
+            "ctrl pressed 6"
+        ]
+    },
+    "name": "default",
+    "version": "1"
+}
