@@ -6,6 +6,7 @@ import org.keymaps.enums.Operation;
 import org.keymaps.exception.ValidationException;
 import org.keymaps.handler.ConsoleCommandHandler;
 import org.keymaps.model.KeyMapper;
+import org.keymaps.util.ConsoleUtil;
 
 import java.io.*;
 import java.util.*;
@@ -83,6 +84,7 @@ public class StartApp {
                         boolean isHotkeyExistForDelete = consoleCommandHandler.isHotkeyExist(userConfig, hotkeyForDelete);
                         if (isHotkeyExistForDelete) {
                             consoleCommandHandler.deleteHotKey(userConfig, actionCmd, hotkeyForDelete);
+                            ConsoleUtil.showAnimationBar("DELETING");
                         } else {
                             ValidationException.throwError("Error - impossible to delete");
                         }
@@ -90,6 +92,7 @@ public class StartApp {
 
                         if (defaultConfig.containsKey(actionCmd)) {
                             consoleCommandHandler.resetHotKey(actionCmd);
+                            ConsoleUtil.showAnimationBar("RESETTING");
                         } else {
                             ValidationException.throwError("Error - impossible to reset");
                         }
@@ -100,6 +103,7 @@ public class StartApp {
                         String actionNameByHotkey = consoleCommandHandler.getActionNameByHotkey(userConfig, hotkeyForDelete);
                         if (actionNameByHotkey != null) {
                             consoleCommandHandler.editHotKey(actionCmd, actionNameByHotkey, hotkeyForDelete, hotkeyForAdd);
+                            ConsoleUtil.showAnimationBar("EDITING");
                         } else {
                             ValidationException.throwError("Error - impossible to edit");
                         }
@@ -116,6 +120,8 @@ public class StartApp {
                         } else {
                             userConfig.put(actionCmd, new ArrayList<>(Collections.singletonList(hotkey)));
                         }
+
+                        ConsoleUtil.showAnimationBar("ADDING");
                     }
                 }
                 System.out.println(userConfig);
