@@ -5,10 +5,7 @@ import java.util.Map;
 
 public class KeyMapper {
 
-    private Map<String, List<String>> keymap;
-
-//    public KeyMapper() {
-//    }
+    private final Map<String, List<String>> keymap;
 
     public KeyMapper(Map<String, List<String>> keymap) {
         this.keymap = keymap;

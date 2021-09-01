@@ -1,8 +1,8 @@
 package org.keymaps.enums;
 
 public enum Operation {
-    DEFAULT,
-    ADD,
+    DELETE,
+    RESET,
     EDIT,
-    DELETE
+    ADD
 }
