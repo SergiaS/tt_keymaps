@@ -1,27 +1,34 @@
-# Keymaps.
+# Keymap instruction
 
-Given two keymaps (configs) default and user's one. User's keymap can contain new shortcuts or overriden shortcuts from default keymap (see example below).
+1. Start application from class `StartApp` - launch main method - the system will load 2 json files (hotkey configs) and merge them.
+Then the system will give you ability to change hotkeys (type command into console) as you want (as described in the task).
+   
+2. Console command template could be 3 types: 
+- __2 values__: `1_OPERATION;2_ACTION_NAME`, for `RESET` operation;
+- __3 values__: `1_OPERATION;2_ACTION_NAME;3_USER_HOTKEY`, for `ADD` and `DELETE` operations;
+- __4 values__: `1_OPERATION;2_ACTION_NAME;3_USER_HOTKEY;4_USER_HOTKEY_REPLACE`, for `EDIT` operation.
 
-__You need to write a program that will be able:__
+Only one hotkey can be added in one command. Examples:
+- `ADD;Action1;ctrl pressed 1` - will add hotkey `ctrl pressed 1` to `Action1`.
+- `DELETE;Action2;ctrl pressed 2` - will remove hotkey `ctrl pressed 2` from `Action2`.
+- `RESET;Action3` - will set default hotkey for `Action3`.
+- `EDIT;Action4;ctrl pressed 2;ctrl pressed 5` - will change hotkey for `Action4` from `ctrl pressed 2` to `ctrl pressed 5`.  
 
-1) Load two keymaps at startup and merge them.
-   Example of merging:
+In the end, when you add all you needed command via console, you can save it into file by typing word `SAVE`.
+Program will stop.
 
-| operation | default		 | user's         | actual keymap (after merging) |
-|:--------- |:-------------- |:-------------- |:----------------------------- |
-| Exit      | Ctrl+Q, Esc    | Esc, Ctrl+L    | Exit -> Esc, Ctrl+L           |
-| Save      | Ctrl+S	     |                | Save -> Ctrl+S                |
-| Edit      | Ctrl+E         | Ctrl+D         | Edit -> Ctrl+D                |
-| Cut       | Ctrl+X, Ctrl+H | Ctrl+X         | Cut  -> Ctrl+X                |
-| Paste     |                | Ctrl+V, Ctrl+P | Paste-> Ctrl+V, Ctrl+P        |
-| Undo      |                | Ctrl+E	      | Undo -> Ctrl+E                |
+### Test cases for use:
 
-2) User must have a possibility:
-   - add/remove/edit shortcuts programmatically (not directly changing configs)
-   - take/print a diff between default and actual keymap
-   - reset keymap to defaults
-
-3) The state must be saved. So if a user closes program and then runs it, it will have a state before closing
-
-Configs a attached to this zip. They are in JSON format. Language - Java.
-You are free to choose a stack of technologies, and a type of application (console, web, desktop, etc.).
+| console cmd                           | description                                   |
+|:-------                               |:-------                                       |
+| ADD;Action1;Ctrl+8                    | добавляет новый хк в существующий Action      |
+| ADD;Action9;Ctrl+9                    | пытается добавить хк в НЕ существующий Action |
+| ADD;Action6;Ctrl+8                    | перемещает добавленый хк                      |
+| ADD;Action1;ctrl pressed 3            | перемещает существующий хк                    |
+| ADD;Action2;ctrl pressed 3            | добавляет лист хк из дефолта в юзер конфиг    |
+| EDIT;Action2;ctrl pressed 3;ctrl      | изменяет существующий хк                      |
+| EDIT;Action2;ctrl pressed 3;ctrl55    | пытается изменить уже не существующий хк      |
+| DELETE;Action1;ctrl pressed U         | удаляет существующий                          |
+| DELETE;Action1;ctrl pressed U         | пытается удалить уже не существующий хк       |
+| RESET;Action5                         | сбрасывает существующий Action                |
+| RESET;Action8                         | сбрасывает не существующий Action             |
